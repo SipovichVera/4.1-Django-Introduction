@@ -1,12 +1,12 @@
 from http.client import HTTPResponse
 from rest_framework.decorators import permission_classes
-from django.views import APIView
+from rest_framework.views import APIView
 from httplib2 import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
 
-from itechart_project.companies.models import Bank, Company, Employee
-from itechart_project.companies.serializers import BankSerializer, CompanySerializer, EmployeeSerializer
+from .models import Bank, Company, Employee
+from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
 
 # Create your views here.
 def main_page(request):

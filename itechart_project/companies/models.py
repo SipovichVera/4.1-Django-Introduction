@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 
-class MaxLenght():
+class MaxLenght:
     MAX_EMPLOYEE_NAME_LENGTH = 100
     MAX_EMPLOYEE_SURENAME_LENGTH = 100
     MAX_EMPLOYEE_JOB_POSITION_LENGTH = 100
@@ -17,12 +17,13 @@ class MaxLenght():
     MAX_PERSONALDATA_HOMEADRESS_LENGTH = 100
 
 
-class TimeCreateUpdate(models.Model):
+class TimeCreateUpdate(models.Model): # abstract table
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
 
 
-class Employee(TimeCreateUpdate, models.Model):
+
+class Employee(TimeCreateUpdate):
     name = models.CharField(max_length=MaxLenght.MAX_EMPLOYEE_NAME_LENGTH)
     surname = models.CharField(max_length=MaxLenght.MAX_EMPLOYEE_SURENAME_LENGTH)
     job_position = models.CharField(max_length=MaxLenght.MAX_EMPLOYEE_JOB_POSITION_LENGTH)
@@ -38,7 +39,7 @@ class Company(TimeCreateUpdate, models.Model):
     web_site = models.URLField(max_length=MaxLenght.MAX_COMPANY_WEBSITE_LENGTH)
     email = models.EmailField(max_length=MaxLenght.MAX_COMPANY_EMAIL_LENGTH, null=True)
     post_index = models.PositiveIntegerField()
-    logo = models.ImageField(upload_to="photos/%Y/%m/%d/")
+    logo = models.ImageField(upload_to="photos/%Y/%m/%d/") # settings
     bank_id = models.ManyToManyField('Bank')
 
 

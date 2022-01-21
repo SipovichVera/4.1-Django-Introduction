@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from itechart_project.companies.models import *
+from .models import *
 
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
@@ -16,7 +16,7 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     # serialize one to one relationship
     date_of_birth = serializers.DateField(source='personal_data_id.date_of_birth')
     home_address = serializers.CharField(source='personal_data_id.home_address')
-    salary = serializers.PositiveIntegerField(source='personal_data_id.salary')
+    salary = serializers.IntegerField(source='personal_data_id.salary')
 
     class Meta:
         model = Employee
