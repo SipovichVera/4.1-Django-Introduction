@@ -2,19 +2,10 @@ from operator import mod
 from django.db.models.deletion import CASCADE
 from django.db import models
 
+from itechart_project.companies.const_values import MaxLenght
+
 # Create your models here.
 
-class MaxLenght:
-    MAX_EMPLOYEE_NAME_LENGTH = 100
-    MAX_EMPLOYEE_SURENAME_LENGTH = 100
-    MAX_EMPLOYEE_JOB_POSITION_LENGTH = 100
-    MAX_COMPANY_NAME_LENGTH = 100
-    MAX_COMPANY_WEBSITE_LENGTH = 200
-    MAX_COMPANY_EMAIL_LENGTH = 100
-    MAX_BANK_NAME_LENGTH = 100
-    MAX_BANK_WEBSITE_LENGTH = 200
-    MAX_BANK_EMAIL_LENGTH = 100
-    MAX_PERSONALDATA_HOMEADRESS_LENGTH = 100
 
 
 class TimeCreateUpdate(models.Model): # abstract table
