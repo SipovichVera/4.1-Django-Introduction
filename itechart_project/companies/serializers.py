@@ -14,26 +14,28 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     # personal_data_id = serializers.OneToOneField()
 
     # serialize one to one relationship
-    date_of_birth = serializers.DateField(source='personal_data_id.date_of_birth')
-    home_address = serializers.CharField(source='personal_data_id.home_address')
-    salary = serializers.IntegerField(source='personal_data_id.salary')
+    # date_of_birth = serializers.DateField(source='personal_data_id.date_of_birth')
+    # home_address = serializers.CharField(source='personal_data_id.home_address')
+    # salary = serializers.IntegerField(source='personal_data_id.salary')
 
     class Meta:
         model = Employee
         fields = ['name', 'surname', 'job_position', 
-                  'is_manager', 'is_admin', 'phone_number']  # add date_of_birth etc?
+                  'is_manager', 'is_admin', 'phone_number', 
+                  'time_create', 'time_update']
+                #   'date_of_birth', 'home_address', 'salary']
 
     def create(self, validated_data):
-        return Employee(**validated_data)
+        return Employee.objects.create(**validated_data)
 
 
 class BankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bank
-        fields = ['name', 'web_site', 'email']
+        fields = ['name', 'web_site', 'email', 'time_create', 'time_update']
 
     def create(self, validated_data):
-        return Bank(**validated_data)
+        return Bank.objects.create(**validated_data)
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -41,25 +43,28 @@ class CompanySerializer(serializers.ModelSerializer):
     # web_site = serializers.URLField(max_length=MaxLenght.MAX_COMPANY_WEBSITE_LENGTH)
     # email = serializers.EmailField(max_length=MaxLenght.MAX_COMPANY_EMAIL_LENGTH, null=True)
     # post_index = serializers.PositiveIntegerField()
-    # logo = serializers.ImageField(upload_to="photos/%Y/%m/%d/")
+    # logo = serializers.ImageField(required=True)
     # bank_id = serializers.ManyToManyField('Bank')
 
-    employee = EmployeeSerializer(many=True)
+    # employee_id = EmployeeSerializer(many=True)
+    employee_id = serializers.CharField(source='employee_id.employee_id')
     bank = BankSerializer(read_only=True, many=True)
 
     class Meta:
         model = Company
-        fields = ['name', 'web_site', 'email', 'post_index', 'bank', 'employee']
+        fields = ['name', 'web_site', 'email', 'post_index', 'bank',
+                  'employee_id', 'time_create', 'time_update']
 
     def create(self, validated_data):
-        return Company(**validated_data)
+        return Company.objects.create(**validated_data)
 
 
 class PersonalDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PersonalData
-        fields = ['date_of_birth', 'home_address', 'salary', ]
+        fields = ['date_of_birth', 'home_address', 'salary', 
+                  'time_create', 'time_update']
 
     def create(self, validated_data):
-        return PersonalData(**validated_data)
+        return PersonalData.objects.create(**validated_data)

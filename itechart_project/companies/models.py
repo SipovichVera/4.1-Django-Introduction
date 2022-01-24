@@ -2,7 +2,9 @@ from operator import mod
 from django.db.models.deletion import CASCADE
 from django.db import models
 
-from itechart_project.companies.const_values import MaxLenght
+from itechart_project.settings import MEDIA_URL
+
+from .const_values import MaxLenght
 
 # Create your models here.
 
@@ -11,6 +13,9 @@ from itechart_project.companies.const_values import MaxLenght
 class TimeCreateUpdate(models.Model): # abstract table
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 
@@ -22,25 +27,25 @@ class Employee(TimeCreateUpdate):
     is_admin = models.BooleanField(default=False)
     comp_id = models.ForeignKey('Company', on_delete=CASCADE, null=True)
     phone_number = models.PositiveIntegerField(unique=True)
-    personal_data_id = models.OneToOneField('PersonalData', on_delete=CASCADE)
+    personal_data_id = models.OneToOneField('PersonalData', on_delete=CASCADE, null=True)
 
 
-class Company(TimeCreateUpdate, models.Model):
+class Bank(TimeCreateUpdate):
+    name = models.CharField(max_length=MaxLenght.MAX_BANK_NAME_LENGTH)
+    web_site = models.URLField(max_length=MaxLenght.MAX_BANK_WEBSITE_LENGTH)
+    email = models.EmailField(max_length=MaxLenght.MAX_BANK_EMAIL_LENGTH, null=True)
+
+
+class Company(TimeCreateUpdate):
     name = models.CharField(max_length=MaxLenght.MAX_COMPANY_NAME_LENGTH, unique=True)
     web_site = models.URLField(max_length=MaxLenght.MAX_COMPANY_WEBSITE_LENGTH)
     email = models.EmailField(max_length=MaxLenght.MAX_COMPANY_EMAIL_LENGTH, null=True)
     post_index = models.PositiveIntegerField()
-    logo = models.ImageField(upload_to="photos/%Y/%m/%d/") # settings
-    bank_id = models.ManyToManyField('Bank')
-
-
-class Bank(TimeCreateUpdate, models.Model):
-    name = models.CharField(max_length=MaxLenght.MAX_BANK_NAME_LENGTH)
-    web_site = models.URLField(max_length=MaxLenght.MAX_BANK_WEBSITE_LENGTH)
-    email = models.EmailField(max_length=MaxLenght.MAX_BANK_EMAIL_LENGTH, null=True)
+    logo = models.ImageField(upload_to=MEDIA_URL, null=True) # settings
+    bank = models.ManyToManyField('Bank', null=True)
    
 
-class PersonalData(TimeCreateUpdate, models.Model):
+class PersonalData(TimeCreateUpdate):
     date_of_birth = models.DateField()
     home_address = models.CharField(max_length=MaxLenght.MAX_PERSONALDATA_HOMEADRESS_LENGTH)
     salary = models.PositiveIntegerField()
