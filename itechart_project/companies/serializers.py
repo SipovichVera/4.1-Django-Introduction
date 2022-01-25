@@ -38,11 +38,11 @@ class CompanySerializer(serializers.ModelSerializer):
 
     # employee_id = EmployeeSerializer(many=True)
     # employee_id = serializers.CharField(source='employee_id.employee_id')
-    bank = serializers.IntegerField()
+    # bank = serializers.IntegerField()
 
     class Meta:
         model = Company
-        fields = ['name', 'web_site', 'email', 'post_index', 'bank',
+        fields = ['name', 'web_site', 'email', 'post_index',
                   'time_create', 'time_update']
 
 

@@ -40,6 +40,7 @@ class Companyview(generics.ListCreateAPIView):
     permission_classes = [AllowAny] 
 
     def list(self, request):
+        print(request)
         queryset = self.get_queryset()
         serializer = CompanySerializer(queryset, many=True)
         return HttpResponse(serializer.data)
