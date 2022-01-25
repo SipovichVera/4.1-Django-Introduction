@@ -25,9 +25,9 @@ class Employee(TimeCreateUpdate):
     job_position = models.CharField(max_length=MaxLenght.MAX_EMPLOYEE_JOB_POSITION_LENGTH)
     is_manager = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    comp_id = models.ForeignKey('Company', on_delete=CASCADE, null=True)
+    comp = models.ForeignKey('Company', on_delete=CASCADE, null=True)
     phone_number = models.PositiveIntegerField(unique=True)
-    personal_data_id = models.OneToOneField('PersonalData', on_delete=CASCADE, null=True)
+    personal_data = models.OneToOneField('PersonalData', on_delete=CASCADE, null=True)
 
 
 class Bank(TimeCreateUpdate):
