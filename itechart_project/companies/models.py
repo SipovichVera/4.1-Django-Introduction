@@ -25,9 +25,10 @@ class Employee(TimeCreateUpdate):
     job_position = models.CharField(max_length=MaxLenght.MAX_EMPLOYEE_JOB_POSITION_LENGTH)
     is_manager = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    comp = models.ForeignKey('Company', on_delete=CASCADE, null=True)
+    comp = models.ForeignKey('Company', on_delete=CASCADE, null=True, blank=True)
     phone_number = models.PositiveIntegerField(unique=True)
-    personal_data = models.OneToOneField('PersonalData', on_delete=CASCADE, null=True)
+    personal_data = models.OneToOneField('PersonalData', on_delete=CASCADE, 
+                                         null=True, blank=True)
 
 
 class Bank(TimeCreateUpdate):
@@ -42,7 +43,7 @@ class Company(TimeCreateUpdate):
     email = models.EmailField(max_length=MaxLenght.MAX_COMPANY_EMAIL_LENGTH, null=True)
     post_index = models.PositiveIntegerField()
     logo = models.ImageField(upload_to=MEDIA_URL, null=True) # settings
-    bank = models.ManyToManyField('Bank', null=True)
+    bank = models.ManyToManyField('Bank', null=True, blank=True)
    
 
 class PersonalData(TimeCreateUpdate):

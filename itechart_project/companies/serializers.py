@@ -1,3 +1,4 @@
+from django.forms import IntegerField
 from rest_framework import serializers
 
 from .models import *
@@ -30,20 +31,24 @@ class BankSerializer(serializers.ModelSerializer):
         return Bank.objects.create(**validated_data)
 
 
+
+
 class CompanySerializer(serializers.ModelSerializer):
     # logo = serializers.ImageField(required=True)
 
     # employee_id = EmployeeSerializer(many=True)
-    employee_id = serializers.CharField(source='employee_id.employee_id')
-    bank = BankSerializer(read_only=True, many=True)
+    # employee_id = serializers.CharField(source='employee_id.employee_id')
+    bank = serializers.IntegerField()
 
     class Meta:
         model = Company
         fields = ['name', 'web_site', 'email', 'post_index', 'bank',
-                  'employee_id', 'time_create', 'time_update']
+                  'time_create', 'time_update']
+
 
     def create(self, validated_data):
         return Company.objects.create(**validated_data)
+
 
 
 class PersonalDataSerializer(serializers.ModelSerializer):

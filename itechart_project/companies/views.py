@@ -2,7 +2,7 @@ from http.client import HTTPResponse
 from django.http import HttpResponse
 from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
-from httplib2 import Response
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
 
@@ -11,7 +11,7 @@ from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
 from . import serializers
 
 # Create your views here.
-def main_page(request):
+def index(request):
     return HTTPResponse('<h1>hello</h1>')
 
 
@@ -42,20 +42,21 @@ class Companyview(generics.ListCreateAPIView):
     def list(self, request):
         queryset = self.get_queryset()
         serializer = CompanySerializer(queryset, many=True)
-        return Response(serializer.data)
+        return HttpResponse(serializer.data)
 
     def create(self, request):
-        print(request.data)
-        Company.objects.create(**request.data)
-        return HttpResponse(request.data)
-        # serializer = self.serializer_class(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # serializer.create(serializer.data)
-        # return HttpResponse(serializer.data)
+    #     print(request.data)
+    #     Company.objects.create(**request.data)
+    #     return HttpResponse(request.data)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.create(serializer.data)
+        return HttpResponse(serializer.data)
 
 
 
 # banks (Function Based Views)
+@csrf_exempt
 @permission_classes([AllowAny])
 def bank_view(request):
     if request.method == 'GET':
@@ -63,8 +64,7 @@ def bank_view(request):
         return HttpResponse(bank_objects)
 
     if request.method == 'POST':
-        print(request.data)
-        serializer = BankSerializer(data=request.data)
+        serializer = BankSerializer(data=dict(request.POST.items()))
         serializer.is_valid(raise_exception=True)
         serializer.create(serializer.data)
         return HttpResponse(serializer.data)
