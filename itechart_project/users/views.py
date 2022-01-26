@@ -7,14 +7,15 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework import serializers
 
+from .permissions import IsAdmin
 from .serializers import LoginSerializer, RegistrSerializer
 
 
 class RegistrAPIView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAdmin,)
     serializer_class = RegistrSerializer
 
     def post(self, request):
