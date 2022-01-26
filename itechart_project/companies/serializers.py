@@ -1,3 +1,4 @@
+from email.policy import default
 from django.forms import IntegerField
 from rest_framework import serializers
 
@@ -38,17 +39,18 @@ class CompanySerializer(serializers.ModelSerializer):
 
     # employee_id = EmployeeSerializer(many=True)
     # employee_id = serializers.CharField(source='employee_id.employee_id')
-    # bank = serializers.IntegerField()
+    bank = serializers.IntegerField(source='bank.bank_id')
 
     class Meta:
         model = Company
-        fields = ['name', 'web_site', 'email', 'post_index',
+        fields = ['name', 'web_site', 'email', 'post_index', 'bank',
                   'time_create', 'time_update']
 
 
     def create(self, validated_data):
-        return Company.objects.create(**validated_data)
-
+        company = Company.objects.create(**validated_data)
+        company.bank.set(validated_data['bank'])
+        return company
 
 
 class PersonalDataSerializer(serializers.ModelSerializer):

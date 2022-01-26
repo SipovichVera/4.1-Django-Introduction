@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'companies.apps.CompaniesConfig',
-    'rest_framework'
+    'auth.app.AuthConfig',
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,12 @@ STATIC_URL = '/static/'
 MEDIA_URL = 'photos/%Y/%m/%d/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
