@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'companies.apps.CompaniesConfig',
-    'auth.app.AuthConfig',
+    'users.apps.UsersConfig',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
 ]
@@ -135,9 +135,9 @@ MEDIA_URL = 'photos/%Y/%m/%d/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
+    # 'DEFAULT_FILTER_BACKENDS': [
+    #     'django_filters.rest_framework.DjangoFilterBackend'
+    # ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
