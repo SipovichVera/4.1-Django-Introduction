@@ -12,3 +12,4 @@ class IsAdmin(permissions.BasePermission):
         else:
             print(request.user)
             raise PermissionDenied("you are not admin")
+

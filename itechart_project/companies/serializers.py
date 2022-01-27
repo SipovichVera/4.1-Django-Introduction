@@ -25,7 +25,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
 
     # serialize one to one relationship
-    comp = serializers.PrimaryKeyRelatedField(read_only=True)
+    comp = serializers.PrimaryKeyRelatedField(queryset=Company.objects.values('pk'))
 
     class Meta:
         model = Employee

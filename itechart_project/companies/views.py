@@ -5,10 +5,10 @@ from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
+from django.db.models import Q
 
 from .models import Bank, Company, Employee
 from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
-from . import serializers
 
 # Create your views here.
 def index(request):
@@ -71,4 +71,8 @@ def bank_view(request):
         return HttpResponse(serializer.data)
 
         
+class LastObjInPeriod(APIView):
 
+    def get(self, request, date_1, date_2):
+        return HttpResponse(Company.objects.filter(Q(time_create__lt=date_2)&
+               Q(time_create__gt=date_1)).latest('time_create'))
