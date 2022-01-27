@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'companies.companies_middleware.MyMiddleware',
+    'users.user_middleware.Middleware',
 ]
 
 ROOT_URLCONF = 'itechart_project.urls'
