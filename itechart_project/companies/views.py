@@ -5,9 +5,9 @@ from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny
 from rest_framework import generics
-from django.db.models import Q
+from django.db.models import Q, F
 
-from .models import Bank, Company, Employee
+from .models import Bank, Company, Employee, PersonalData
 from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
 
 # Create your views here.
@@ -76,3 +76,10 @@ class LastObjInPeriod(APIView):
     def get(self, request, date_1, date_2):
         return HttpResponse(Company.objects.filter(Q(time_create__lt=date_2)&
                Q(time_create__gt=date_1)).latest('time_create'))
+
+
+class SalaryBirthday(APIView):
+
+    def post(self, request, date):
+        print('2020-09-09')
+        return HttpResponse(PersonalData.objects.filter(date_of_birth=date).update(salary=F('salary')+200))
