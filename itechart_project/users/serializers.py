@@ -3,6 +3,8 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
+from itechart_project.users.validators import LoginValidator
+
 
 from .models import User
 
@@ -26,39 +28,19 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
     token = serializers.CharField(read_only=True)
 
-    def validate(self, data):
+    def validate(self, data) -> dict:
         username = data.get('username', None)
         password = data.get('password', None)
-
-        if username is None:
-            raise serializers.ValidationError(
-                'username is required to log in.'
-            )
-
-        if password is None:
-            raise serializers.ValidationError(
-                'password is required to log in.'
-            )
+        
+        login_validator = LoginValidator()
+        login_validator.validate_is_blank_field(username, password)
 
         user = authenticate(username=username, password=password)
 
-        if user is None:
-            raise serializers.ValidationError(
-                "no such user"
-            )
-
-        if not user.is_active:
-            raise serializers.ValidationError(
-                'This user is deactivated.'
-            )
+        login_validator.validate_user_exists(user)
+        login_validator.validate_is_activ(user)
 
         return {
             'username': user.username,
             'token': user.token
             }
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ('id', 'username')

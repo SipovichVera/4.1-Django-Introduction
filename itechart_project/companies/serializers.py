@@ -5,16 +5,16 @@ from .models import Company, Bank, Employee, PersonalData
 
 class CompanySerializer(serializers.ModelSerializer):
 
-    bank = serializers.IntegerField(read_only=True, source='bank_id')
+    bank = serializers.IntegerField(
+        read_only=True, source='bank_id')
 
     class Meta:
         model = Company
         fields = ['name', 'web_site', 'email', 'post_index', 'bank',
                   'time_create', 'time_update']
 
-    def create(self, validated_data):
-        company = Company.objects.create(**validated_data)
-        return company
+    def create(self, validated_data) -> Company:
+        return Company.objects.create(**validated_data)
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
@@ -30,18 +30,18 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'is_manager', 'is_admin', 'phone_number', 
                   'comp', 'time_create', 'time_update']
 
-    def create(self, validated_data):
-        employee = Employee.objects.create(**validated_data)
-        return employee
+    def create(self, validated_data) -> Employee:
+        return Employee.objects.create(**validated_data)
 
 
 class BankSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bank
-        fields = ['name', 'web_site', 'email', 'time_create', 'time_update']
+        fields = ['name', 'web_site', 'email',
+                  'time_create', 'time_update']
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> Bank:
         return Bank.objects.create(**validated_data)
 
 
@@ -52,7 +52,7 @@ class PersonalDataSerializer(serializers.ModelSerializer):
         fields = ['date_of_birth', 'home_address', 'salary', 
                   'time_create', 'time_update']
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> PersonalData:
         return PersonalData.objects.create(**validated_data)
 
 
@@ -63,6 +63,6 @@ class EmployeeWithPersonalData(EmployeeSerializer):
         fields = ['date_of_birth', 'home_address', 'salary', 
                   'time_create', 'time_update']
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> PersonalData:
         return PersonalData.objects.create(**validated_data)
     
