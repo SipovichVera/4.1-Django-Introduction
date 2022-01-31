@@ -1,12 +1,12 @@
 class LoginValidator():
 
     def validate_is_blank_field(self, username, password) -> bool:
-        if self.username is None:
+        if username is None:
             raise Exception(
                 'username is required to log in.'
             )
 
-        if self.password is None:
+        if password is None:
             raise Exception(
                 'password is required to log in.'
             )
