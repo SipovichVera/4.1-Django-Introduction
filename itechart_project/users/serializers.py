@@ -1,11 +1,8 @@
-from dataclasses import field
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
-from itechart_project.users.validators import LoginValidator
-
-
+from .validators import LoginValidator
 from .models import User
 
 
@@ -31,7 +28,7 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data) -> dict:
         username = data.get('username', None)
         password = data.get('password', None)
-        
+
         login_validator = LoginValidator()
         login_validator.validate_is_blank_field(username, password)
 
@@ -44,3 +41,10 @@ class LoginSerializer(serializers.Serializer):
             'username': user.username,
             'token': user.token
             }
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username')

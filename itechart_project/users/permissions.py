@@ -1,4 +1,3 @@
-from django.http import Http404
 from rest_framework import permissions
 from django.core.exceptions import PermissionDenied
 
@@ -12,4 +11,3 @@ class IsAdmin(permissions.BasePermission):
         else:
             print(request.user)
             raise PermissionDenied("you are not admin")
-

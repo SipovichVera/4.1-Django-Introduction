@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Company, Bank, Employee, PersonalData 
+from .models import Company, Bank, Employee, PersonalData
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -10,8 +10,8 @@ class CompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Company
-        fields = ['name', 'web_site', 'email', 'post_index', 'bank',
-                  'time_create', 'time_update']
+        fields = ['name', 'web_site', 'email', 'post_index',
+                  'bank', 'time_create', 'time_update']
 
     def create(self, validated_data) -> Company:
         return Company.objects.create(**validated_data)
@@ -26,8 +26,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ['name', 'surname', 'job_position', 
-                  'is_manager', 'is_admin', 'phone_number', 
+        fields = ['name', 'surname', 'job_position',
+                  'is_manager', 'is_admin', 'phone_number',
                   'comp', 'time_create', 'time_update']
 
     def create(self, validated_data) -> Employee:
@@ -49,7 +49,7 @@ class PersonalDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PersonalData
-        fields = ['date_of_birth', 'home_address', 'salary', 
+        fields = ['date_of_birth', 'home_address', 'salary',
                   'time_create', 'time_update']
 
     def create(self, validated_data) -> PersonalData:
@@ -60,7 +60,7 @@ class EmployeeWithPersonalData(EmployeeSerializer):
 
     class Meta:
         model = PersonalData
-        fields = ['date_of_birth', 'home_address', 'salary', 
+        fields = ['date_of_birth', 'home_address', 'salary',
                   'time_create', 'time_update']
 
     def create(self, validated_data) -> PersonalData:

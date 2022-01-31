@@ -1,8 +1,3 @@
-
-
-from xmlrpc.client import boolean
-
-
 class LoginValidator():
 
     def validate_is_blank_field(self, username, password) -> bool:
@@ -17,7 +12,6 @@ class LoginValidator():
             )
 
         return True
-
 
     def validate_is_activ(self, user) -> bool:
 

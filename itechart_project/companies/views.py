@@ -39,7 +39,7 @@ class EmployeeView(APIView):
 class Companyview(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [AllowAny] 
+    permission_classes = [AllowAny]
 
     def list(self, request):
         print(request)
@@ -68,12 +68,13 @@ def bank_view(request):
         serializer.create(serializer.data)
         return HttpResponse(serializer.data)
 
-        
+
 class LastObjInPeriod(APIView):
 
     def get(self, request, date_1, date_2):
-        return HttpResponse(Company.objects.filter(Q(time_create__lt=date_2) &
-               Q(time_create__gt=date_1)).latest('time_create'))
+        return HttpResponse(
+            Company.objects.filter(Q(time_create__lt=date_2) &
+                                   Q(time_create__gt=date_1)).latest('time_create'))
 
 
 class SalaryBirthday(APIView):
@@ -82,17 +83,18 @@ class SalaryBirthday(APIView):
         date = datetime.strptime(date, '%Y-%m-%d')
         return HttpResponse(
             PersonalData.objects.filter(Q(date_of_birth__month=date.strftime("%m")) &
-            Q(date_of_birth__day=date.strftime("%d"))).update(salary=F('salary')+number))
+                                        Q(date_of_birth__day=date.strftime("%d"))).update(salary=F('salary')+number))
 
 
 class CompanyView(APIView):
     serializer_class = CompanySerializer
 
-    def post(self,request):
+    def post(self, request):
         companies_data = request.data.get('companies', {})
         serializer_data = []
         for comp_data in companies_data:
-            serializer_data.append(self.create_company(self.serialize_data(comp_data)))
+            serializer_data.append(
+                self.create_company(self.serialize_data(comp_data)))
         return HttpResponse(serializer_data)
 
     def serialize_data(self, data):
@@ -104,7 +106,10 @@ class CompanyView(APIView):
         serializer.save()
         return serializer.data
 
+
 class LastCreatedEmployee(APIView):
 
     def get(self, request):
-        return HttpResponse(Employee.objects.values('comp').annotate(latest_date=Max('time_update')))
+        return HttpResponse(
+            Employee.objects.values('comp').annotate(latest_date
+                                                     =Max('time_update')))
