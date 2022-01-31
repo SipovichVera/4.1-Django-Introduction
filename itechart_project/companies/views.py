@@ -46,9 +46,6 @@ class Companyview(generics.ListCreateAPIView):
         return HttpResponse(serializer.data)
 
     def create(self, request):
-    #     print(request.data)
-    #     Company.objects.create(**request.data)
-    #     return HttpResponse(request.data)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.create(serializer.data)
@@ -80,6 +77,26 @@ class LastObjInPeriod(APIView):
 
 class SalaryBirthday(APIView):
 
-    def post(self, request, date):
-        print('2020-09-09')
-        return HttpResponse(PersonalData.objects.filter(date_of_birth=date).update(salary=F('salary')+200))
+    def post(self, request, date, number):
+        return HttpResponse(PersonalData.objects.filter(date_of_birth=date).update(salary=F('salary')+number))
+
+
+class CompanyView(APIView):
+
+    def post(self,request, args1, args2):
+        Company.objects.create(args1)
+        Company.objects.create(args2)
+        
+
+class LastCreatedEmployee(APIView):
+
+    def get(self, request, ):
+        employees = Employee.objects.filter('comp')
+        for employee in employees:
+            employee.
+        return HttpResponse((Employee.objects.filter('comp')).latest('time_update'))
+        # companies = Company.objects.all()
+        # list_last_employee = []
+        # for company in companies:
+        #     list_last_employee.append(company.employee.latest('time_update'))
+        # HttpResponse(list_last_employee)
