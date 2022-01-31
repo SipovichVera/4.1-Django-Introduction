@@ -1,8 +1,7 @@
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
-from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .permissions import IsAdmin
 from .serializers import LoginSerializer, RegistrSerializer, UserSerializer
@@ -33,7 +32,6 @@ class LoginAPIView(APIView):
 
 
 class UserAPIView(RetrieveAPIView):
-    
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
 

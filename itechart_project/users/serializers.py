@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 
 from .models import User
 
+
 class RegistrSerializer(serializers.Serializer):
 
     username = serializers.CharField()
@@ -16,11 +17,10 @@ class RegistrSerializer(serializers.Serializer):
         model = User
         fields = {'username', 'password', 'token'}
 
-
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
-    
+
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
