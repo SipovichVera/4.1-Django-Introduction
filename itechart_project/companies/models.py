@@ -5,8 +5,6 @@ from itechart_project.settings import MEDIA_URL
 
 from .const_values import MaxLenght
 
-# Create your models here.
-
 
 class TimeCreateUpdate(models.Model):  # abstract table
     time_create = models.DateTimeField(auto_now_add=True)
@@ -49,7 +47,7 @@ class Company(TimeCreateUpdate):
     email = models.EmailField(
         max_length=MaxLenght.MAX_COMPANY_EMAIL_LENGTH, null=True)
     post_index = models.PositiveIntegerField()
-    logo = models.ImageField(upload_to=MEDIA_URL, null=True)  # settings
+    logo = models.ImageField(upload_to=MEDIA_URL, null=True)
     bank = models.ManyToManyField('Bank', null=True, blank=True)
 
 

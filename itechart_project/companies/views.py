@@ -13,7 +13,7 @@ from .models import Bank, Company, Employee, PersonalData
 from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
 
 
-# Create your views here.
+
 def index(request):
     return HTTPResponse('<h1>hello</h1>')
 
