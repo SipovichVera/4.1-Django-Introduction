@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'companie',
         'USER': 'vera',
         'PASSWORD': '1234',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
@@ -133,7 +133,8 @@ CSRF_COOKIE_SECURE = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-CELERY_BROKER_URL = '127.0.0.1'
+BROKER_URL = 'redis://localhost:5672'
+CELERY_RESULT_BACKEND = 'redis://localhost:5672'
 
 STATIC_URL = '/static/'
 
