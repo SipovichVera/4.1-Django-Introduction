@@ -29,3 +29,24 @@ services:
     links:
       - db:db
 
+  nginx:
+    build: 
+      context: nginx
+    container_name: nginx
+    links:
+      - uwsgi
+    volumes_from:
+      - uwsgi
+    ports:
+      - "8080:8080"
+
+  uwsgi:
+    build: 
+      context: .
+    container_name: uwsgi
+    volumes:
+      - /nginx:/conf
+      - .:/itechart_project
+    expose:
+      - "8001"
+

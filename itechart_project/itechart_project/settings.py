@@ -26,7 +26,11 @@ SECRET_KEY = 'p9=&z01i37_9auag@bhff436ws7&h4t!g36g7i!od!lcgw&&ik'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+if os.getenv('DJANGO_ENV') == 'venv':
+    ALLOWED_HOSTS = ['verasipov.com', '0.0.0.0']
+else:
+    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -86,7 +90,7 @@ DATABASES = {
         'NAME': 'companie',
         'USER': 'vera',
         'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '',
     }
 }
@@ -131,9 +135,11 @@ CSRF_COOKIE_SECURE = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = 'photos/%Y/%m/%d/'
+MEDIA_URL = 'media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 REST_FRAMEWORK = {
     # 'DEFAULT_FILTER_BACKENDS': [
