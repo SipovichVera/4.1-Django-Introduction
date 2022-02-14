@@ -1,4 +1,6 @@
-class LoginValidator():
+from django.core.validators import validate_email
+
+class LoginValidator:
 
     def validate_is_blank_field(self, username, password) -> bool:
         if username is None:
@@ -26,3 +28,9 @@ class LoginValidator():
                 "no such user"
             )
         return True
+
+class EmailValidator:
+
+    def validate_email(self, email):
+        validate_email(email)
+        

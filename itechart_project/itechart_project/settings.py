@@ -133,6 +133,8 @@ CSRF_COOKIE_SECURE = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+CELERY_BROKER_URL = '127.0.0.1'
+
 STATIC_URL = '/static/'
 
 MEDIA_URL = 'media/'
