@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+import datetime
 
 from .validators import LoginValidator
 from .models import User
@@ -24,6 +25,7 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     token = serializers.CharField(read_only=True)
+    last_activity = serializers.DateTimeField(read_only=True)
 
     def validate(self, data) -> dict:
         username = data.get('username', None)
@@ -36,6 +38,7 @@ class LoginSerializer(serializers.Serializer):
 
         login_validator.validate_user_exists(user)
         login_validator.validate_is_activ(user)
+        user.last_activity = datetime.datetime.now()
 
         return {
             'username': user.username,

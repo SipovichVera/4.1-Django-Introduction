@@ -37,6 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+    last_activity = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'username'
     # REQUIRED_FIELDS = ['username']
