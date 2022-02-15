@@ -35,8 +35,8 @@ class LoginSerializer(serializers.Serializer):
         login_validator.validate_is_blank_field(username, password)
 
         user = authenticate(username=username, password=password)
-
         login_validator.validate_user_exists(user)
+        
         login_validator.validate_is_activ(user)
         user.last_activity = datetime.datetime.now()
 

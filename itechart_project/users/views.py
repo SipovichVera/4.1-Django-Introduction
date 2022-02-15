@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.views.decorators.csrf import csrf_exempt
 
+from .models import User
+
 from .tasks import validate_email_celery
 from .permissions import IsAdmin
 from .serializers import LoginSerializer, RegistrSerializer, UserSerializer
@@ -47,3 +49,11 @@ def check_email(request):
         email = request.POST.get('email')
         return HttpResponse(validate_email_celery.delay(email))  # delay() - Celery to execute this function in the background
     return HttpResponse("enter email")
+
+
+@csrf_exempt
+def get_all_users(request):
+    if request.method == 'GET':
+        users = User.objects.all()
+        return HttpResponse(users)
+    return HttpResponse('something goes wrong')

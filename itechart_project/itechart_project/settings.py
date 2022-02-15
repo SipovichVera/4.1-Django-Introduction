@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,7 +91,7 @@ DATABASES = {
         'NAME': 'companie',
         'USER': 'vera',
         'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '',
     }
 }
@@ -133,8 +134,16 @@ CSRF_COOKIE_SECURE = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-BROKER_URL = 'redis://localhost:5672'
-CELERY_RESULT_BACKEND = 'redis://localhost:5672'
+CELERY_BROKER_URL = 'redis://redis:6379/0' 
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://redis:5672'
+
+CELERY_BEAT_SCHEDULE = {
+    "sample_task": {
+        "task": "users.tasks.remove_inactive_users",
+        "schedule": crontab(minute="*/1"),
+    },
+}
 
 STATIC_URL = '/static/'
 
