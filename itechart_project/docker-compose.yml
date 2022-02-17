@@ -60,6 +60,8 @@ services:
     depends_on:
       - db
       - redis
+    links:
+      - redis
   celery-beat:
     build: .
     command: celery -A itechart_project beat -l info
@@ -67,5 +69,7 @@ services:
       - .:/itechart_project
     depends_on:
       - db
+      - redis
+    links:
       - redis
 
