@@ -26,14 +26,14 @@ def test_is_admin(db, is_admin):
     assert is_admin.is_superuser == True
 
 
-# @pytest.mark.django_db(True)
-# class LoginTest(TestCase):
+@pytest.mark.django_db(True)
+class LoginTest(TestCase):
 
-#     def setUp(self):
-#         self.user = User.objects.create(username='vera', password='1234')
-#         self.user.save()
+    def setUp(self):
+        self.user = User.objects.create(username='vera', password='1234')
+        self.user.save()
 
-#     def test_correct(self):
-#         user = authenticate(username='vera', password='1234')
-#         print(user)
-#         self.assertTrue(user is not None and user.is_authenticated)
+    def test_correct(self):
+        user = authenticate(username='vera', password='1234')
+        print(user)
+        self.assertTrue(user is not None and user.is_authenticated)

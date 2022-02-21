@@ -1,2 +1,8 @@
-import datetime
-print(datetime.datetime.now() - datetime.datetime.strptime('2022-01-01', '%Y-%m-%d'))
+import asyncio 
+async def main(): 
+    print("Waiting 5 seconds. ") 
+    for i in range(5): 
+        await asyncio.sleep(1) 
+        print("Hello", i) 
+    print("Finished waiting.") 
+asyncio.run(main())
