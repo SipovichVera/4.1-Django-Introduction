@@ -31,7 +31,7 @@ DEBUG = False
 if os.getenv('DJANGO_ENV') == 'venv':
     ALLOWED_HOSTS = ['verasipov.com', '0.0.0.0']
 else:
-    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'company-itart-proj.herokuapp.com']
 
 
 # Application definition
@@ -156,7 +156,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = 'media/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
