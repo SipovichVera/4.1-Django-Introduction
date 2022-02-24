@@ -37,7 +37,7 @@ class LoginAPIView(APIView):
 
 
 class UserAPIView(RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
     def get_object(self):

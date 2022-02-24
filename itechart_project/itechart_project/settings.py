@@ -25,13 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'p9=&z01i37_9auag@bhff436ws7&h4t!g36g7i!od!lcgw&&ik'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 if os.getenv('DJANGO_ENV') == 'venv':
-    ALLOWED_HOSTS = ['verasipov.com', '0.0.0.0']
+    ALLOWED_HOSTS = ['verasipov.com', '0.0.0.0', 'itechproj.herokuapp.com']
 else:
-    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'company-itart-proj.herokuapp.com']
+    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'itechproj.herokuapp.com']
 
 
 # Application definition
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'companies.apps.CompaniesConfig',
     'users.apps.UsersConfig',
     'rest_framework',
