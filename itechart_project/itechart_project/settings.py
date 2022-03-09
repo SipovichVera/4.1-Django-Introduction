@@ -29,9 +29,9 @@ DEBUG = True
 
 
 if os.getenv('DJANGO_ENV') == 'venv':
-    ALLOWED_HOSTS = ['verasipov.com', '0.0.0.0', 'itechproj.herokuapp.com']
+    ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'itechproj.herokuapp.com']
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -93,8 +93,8 @@ DATABASES = {
         'NAME': 'companie',
         'USER': 'vera',
         'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
@@ -144,12 +144,12 @@ CSRF_COOKIE_SECURE = True
 CELERY_BROKER_URL = 'redis://redis:6379/0' 
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
-CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
-        "task": "users.tasks.remove_inactive_users",
-        "schedule": crontab(minute="*/1"),
-    },
-}
+# CELERY_BEAT_SCHEDULE = {
+#     "sample_task": {
+#         "task": "users.tasks.remove_inactive_users",
+#         "schedule": crontab(minute="*/1"),
+#     },
+# }
 
 STATIC_URL = '/static/'
 
