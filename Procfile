@@ -1,0 +1,1 @@
+web: gunicorn itechart_project.wsgi --log-file -
