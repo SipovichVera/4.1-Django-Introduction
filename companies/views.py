@@ -1,4 +1,3 @@
-from http.client import HTTPResponse
 from datetime import datetime
 from django.http import HttpResponse
 from rest_framework.decorators import permission_classes
@@ -15,7 +14,7 @@ from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
 
 
 def index(request):
-    return HTTPResponse('<h1>hello</h1>')
+    return HttpResponse('<h1>hello vera</h1>')
 
 
 # employees (Class Based Views)
