@@ -15,7 +15,7 @@ from .serializers import BankSerializer, CompanySerializer, EmployeeSerializer
 
 
 def index(request):
-    return HTTPResponse('<h1>hello</h1>')
+    return HTTPResponse('<h1>hello vera</h1>')
 
 
 # employees (Class Based Views)
